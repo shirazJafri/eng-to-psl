@@ -1,36 +1,67 @@
 import flask
+import requests
 from flask import request, jsonify
 from psl_dictionary import break_sentence_refix
 from word_mapping import words_mapping
 from video_formation import video_formation
 
-path = 'http://ecc5-182-255-48-81.ngrok.io/static/'
+path = 'http://127.0.0.1:5000/static/'
 
 app = flask.Flask(__name__, static_url_path= '/static')
 app.config['DEBUG'] = True
 
-@app.route('/api/fixSentence', methods= ['GET', 'POST'])
+@app.route('/api/fixSentence', methods= ['POST'])
 def psl_sentence_generation():
-    if request.method == 'POST':
-        json_data = request.json
-        sentence = json_data['sentence']
-        
-        if sentence:
-            psl_sentences = break_sentence_refix(sentence)
-
-            print(psl_sentences)
+    try:
+        if request.method == 'POST':
+            json_data = request.json
+            sentence = json_data['sentence']
             
-            sentences, paths = words_mapping(psl_sentences)
+            if sentence:
+                if len(sentence.split()) > 1:
+                    sentence = break_sentence_refix(sentence)
 
-            file_name = video_formation(sentences, paths)
+                sentences, paths = words_mapping(sentence)
 
-            return jsonify({'static_file': path + file_name})
+                file_name = video_formation(sentences, paths)
 
-    return jsonify({'static_file': ""})
+                response = {
+                    "status": "success",
+                    "data": {
+                        "file_path": path + file_name
+                    }
+                }
+
+                return jsonify(response)
+
+            response = {
+                    "status": "success",
+                    "data": {
+                        "file_path": ""
+                    }
+            }
+
+        return jsonify(response)
+
+    except requests.exceptions.RequestException as error:
+        response = {
+                    "status": "error",
+                    "data": {
+                        "error": error
+                    }
+            }
+        
+        return jsonify(response)
 
 @app.route('/', methods= ['GET', 'POST'])
 def defaultRoute():
-    return jsonify({'sentence': "Server is running"})
+    response = {
+                "status": "success",
+                "data": {
+                    "server_status": "Fine"
+                }
+            }
+    return jsonify(response)
 
 if __name__=='__main__':
     app.run()

@@ -78,8 +78,8 @@ def psl_sentence_formation(psl_dict):
     psl_sentence = " ".join(psl_sentence.split())
 
     if 'WH_QUES' in psl_dict.keys() or 'AUX_QUES' in psl_dict.keys():
-        psl_sentence += "?"
+        psl_sentence += " ?"
     else:
-        psl_sentence += "."
+        psl_sentence += ""
         
     return psl_sentence.capitalize()
