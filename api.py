@@ -1,3 +1,4 @@
+import sys
 import flask
 import requests
 from flask import request, jsonify
@@ -5,7 +6,7 @@ from psl_dictionary import break_sentence_refix
 from word_mapping import words_mapping
 from video_formation import video_formation
 
-path = 'http://127.0.0.1:5000/static/'
+path = 'http://98fd-182-255-48-81.ngrok.io/static/'
 
 app = flask.Flask(__name__, static_url_path= '/static')
 app.config['DEBUG'] = True
@@ -16,6 +17,7 @@ def psl_sentence_generation():
         if request.method == 'POST':
             json_data = request.json
             sentence = json_data['sentence']
+            print(sentence)
             
             if sentence:
                 if len(sentence.split()) > 1:
@@ -25,17 +27,17 @@ def psl_sentence_generation():
 
                 file_name = video_formation(sentences, paths)
 
-                response = {
-                    "status": "success",
-                    "data": {
-                        "file_path": path + file_name
+                if file_name:
+                    response = {
+                        "status": "success",
+                        "data": {
+                            "file_path": path + file_name
+                        }
                     }
-                }
-
-                return jsonify(response)
+                    return jsonify(response)
 
             response = {
-                    "status": "success",
+                    "status": "fail",
                     "data": {
                         "file_path": ""
                     }

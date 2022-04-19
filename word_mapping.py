@@ -33,8 +33,15 @@ def flatten(t):
 
 def words_mapping(sentences):
     all_paths = []
+
+    if not isinstance(sentences, list):
+        if len(sentences.split()) == 1:
+            all_paths.append(mapping(bare_form(sentences)))
+            return (sentences, flatten(all_paths))
+
     for sentence in sentences:
         sentence = bare_form(sentence)
+        print(sentence)
 
         all_paths.append(mapping(sentence))
 
