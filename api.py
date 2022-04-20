@@ -6,7 +6,7 @@ from psl_dictionary import break_sentence_refix
 from word_mapping import words_mapping
 from video_formation import video_formation
 
-path = 'http://98fd-182-255-48-81.ngrok.io/static/'
+path = 'http://3956-182-255-48-81.ngrok.io/static/'
 
 app = flask.Flask(__name__, static_url_path= '/static')
 app.config['DEBUG'] = True
