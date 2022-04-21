@@ -24,7 +24,8 @@ def mapping(sentence):
             letters = list(word)
             
             for letter in letters:
-                paths.append(words_dict[letter])
+                if letter in words_dict.keys():
+                    paths.append(words_dict[letter])
         
     return paths
 
