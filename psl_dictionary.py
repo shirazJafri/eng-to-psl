@@ -45,7 +45,7 @@ def psl_dict_generation(sentence):
             # Checking for auxilary question
             for token_2 in doc:
                 if token_2.text == '?':
-                    psl_dict['AUX_QUES'] = 'Yes - No'
+                    psl_dict['AUX_QUES'] = 'Yes-No'
 
             temp_list = [token.tag_, 'was']
             verbs.append(temp_list)
@@ -58,7 +58,7 @@ def psl_dict_generation(sentence):
             psl_dict['FUT_INDEF'] = 'after'
             for token_4 in doc:
                 if token_4.text == '?':
-                    psl_dict['AUX_QUES'] = 'Yes - No'
+                    psl_dict['AUX_QUES'] = 'Yes-No'
 
         # ADJ in PSL
         elif token.tag_ in ['JJ', 'JJS']:
@@ -73,7 +73,7 @@ def psl_dict_generation(sentence):
             adverbs[token.i] = token.text
 
         # Wh-questions in PSL
-        elif token.tag_ in ['WP', 'WP$', 'WRB']:
+        elif token.tag_ in ['WP', 'WP$', 'WRB', 'WDT']:
             if token.lemma_ == 'when':
                 psl_dict['WH_QUES'] = 'time'
             else:
@@ -87,7 +87,7 @@ def psl_dict_generation(sentence):
                     is_question = True
 
             if token.tag_ not in ['VBD'] and is_question:
-                psl_dict['AUX_QUES'] = 'Yes - No'
+                psl_dict['AUX_QUES'] = 'Yes-No'
 
     psl_dict['NOUN'] = nouns
     psl_dict['VERB'] = verbs

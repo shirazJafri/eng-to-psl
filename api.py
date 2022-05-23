@@ -1,4 +1,3 @@
-import sys
 import flask
 import requests
 from flask import request, jsonify
@@ -6,7 +5,7 @@ from psl_dictionary import break_sentence_refix
 from word_mapping import words_mapping
 from video_formation import video_formation
 
-path = 'http://3956-182-255-48-81.ngrok.io/static/'
+path = 'http://192.168.0.108:5000/static/'
 
 app = flask.Flask(__name__, static_url_path= '/static')
 app.config['DEBUG'] = True
@@ -55,7 +54,7 @@ def psl_sentence_generation():
         
         return jsonify(response)
 
-@app.route('/', methods= ['GET', 'POST'])
+@app.route('/api/', methods= ['GET', 'POST'])
 def defaultRoute():
     response = {
                 "status": "success",
@@ -66,7 +65,7 @@ def defaultRoute():
     return jsonify(response)
 
 if __name__=='__main__':
-    app.run()
+    app.run(host= '0.0.0.0')
 
 
 
