@@ -2,3 +2,4 @@ GrammarFixerModel.joblib
 GrammarFixerTokenizer.joblib
 /__pycache__
 /static
+.env

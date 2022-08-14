@@ -1,7 +1,4 @@
 from joblib import load
-#from rpunct import RestorePuncts
-
-# rpunct = RestorePuncts()
 
 tokenizer = load('GrammarFixerTokenizer.joblib')
 model = load('GrammarFixerModel.joblib')
