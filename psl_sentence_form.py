@@ -1,5 +1,6 @@
 from sentence_helpers import sort_noun_dict, check_adverb
 
+
 def psl_sentence_formation(psl_dict):
     psl_dict = sort_noun_dict(psl_dict)
     psl_sentence = ''
@@ -25,7 +26,7 @@ def psl_sentence_formation(psl_dict):
                 psl_sentence += noun_pair[1] + " "
                 pos += 1
 
-                ### ADVERBIAL CHECK GOES OVER HERE
+                # ADVERBIAL CHECK GOES OVER HERE
                 (psl_sentence, pos) = check_adverb(psl_dict, pos, psl_sentence)
 
         else:
@@ -37,11 +38,10 @@ def psl_sentence_formation(psl_dict):
     if 'ADJ' in psl_dict.keys():
         psl_sentence += psl_dict['ADJ'] + " "
         pos += 1
-        ### ADVERBIAL CHECK GOES OVER HERE
+        # ADVERBIAL CHECK GOES OVER HERE
         (psl_sentence, pos) = check_adverb(psl_dict, pos, psl_sentence)
 
-
-    # VERB arrangement    
+    # VERB arrangement
     if psl_dict['VERB'] != []:
         for verb_pair in psl_dict['VERB']:
             if verb_pair[0] == 'VBG':
@@ -55,7 +55,7 @@ def psl_sentence_formation(psl_dict):
             elif not is_past:
                 psl_sentence += verb_pair[1] + " "
 
-    ### ADVERBIAL CHECK GOES OVER HERE
+    # ADVERBIAL CHECK GOES OVER HERE
 
     if is_perfect:
         psl_sentence += " full "
@@ -81,5 +81,5 @@ def psl_sentence_formation(psl_dict):
         psl_sentence += " ?"
     else:
         psl_sentence += ""
-        
+
     return psl_sentence.capitalize()

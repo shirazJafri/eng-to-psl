@@ -1,7 +1,8 @@
+from psl_sentence_form import psl_sentence_formation
+from fixSentence import fixSentence
 import spacy
 nlp = spacy.load('en_core_web_sm')
-from fixSentence import fixSentence
-from psl_sentence_form import psl_sentence_formation
+
 
 def break_sentence_refix(sentences):
     psl_sentences = []
@@ -17,9 +18,10 @@ def break_sentence_refix(sentences):
 
     return psl_sentences
 
+
 def psl_dict_generation(sentence):
     doc = nlp(sentence)
-    
+
     psl_dict = {}
     nouns = []
     verbs = []
@@ -28,7 +30,7 @@ def psl_dict_generation(sentence):
     for token in doc:
         # NOUN in PSL
         if token.tag_ in ['NN', 'NNS', 'NNP', 'NNPS', 'PRP', 'PRP$'] or token.dep_ in ('csubj', 'csubjpass', 'nsubjpass', 'nsubj'):
-            temp_list= [token.dep_, token.text]
+            temp_list = [token.dep_, token.text]
             nouns.append(temp_list)
 
         # VERB/AUX in PSL
@@ -92,5 +94,5 @@ def psl_dict_generation(sentence):
     psl_dict['NOUN'] = nouns
     psl_dict['VERB'] = verbs
     psl_dict['ADV'] = adverbs
-    
+
     return psl_dict
